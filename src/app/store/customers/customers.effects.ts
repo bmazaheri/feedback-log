@@ -18,7 +18,7 @@ export class CustomersEffects {
     ofType(CustomersActionTypes.GET),
     mergeMap(() =>
       this.customersService.getCustmers().pipe(
-        map(customers => new GetCustomersSuccess(customers)),
+        map(customers => new GetCustomersSuccess({ customers })),
         catchError(() => EMPTY)
       )
     )
@@ -28,8 +28,8 @@ export class CustomersEffects {
   addCustomer$ = this.actions$.pipe(
     ofType(CustomersActionTypes.ADD),
     mergeMap((action: AddCustomer) =>
-      this.customersService.addCustmer(action.payload).pipe(
-        map(customer => new AddCustomerSuccess(customer)),
+      this.customersService.addCustmer(action.payload.name).pipe(
+        map(customer => new AddCustomerSuccess({ customer })),
         catchError(() => EMPTY)
       )
     )

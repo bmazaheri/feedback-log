@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'feedback-log',
-  template: `
-    <router-outlet></router-outlet>
-    <router-outlet name="feedbacks"></router-outlet>
-  `
+  templateUrl: './feedback-log.component.html',
+  styleUrls: ['./feedback-log.component.css']
 })
 export class FeedbackLogComponent {}

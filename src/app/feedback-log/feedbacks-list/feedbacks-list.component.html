@@ -1,1 +1,4 @@
 ffffffffff
+<div *ngFor="let feedback of (feedbacks$ | async)">
+  {{ feedback.description }}
+</div>

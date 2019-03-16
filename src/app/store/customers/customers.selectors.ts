@@ -1,6 +1,7 @@
-import { AppState } from '..';
-import { customersAdapter } from './customers.reducer';
 import { createSelector } from '@ngrx/store';
+
+import { AppState } from '../index';
+import { customersAdapter } from './customers.reducer';
 
 export const selectCustomersState = (state: AppState) => state.customers;
 

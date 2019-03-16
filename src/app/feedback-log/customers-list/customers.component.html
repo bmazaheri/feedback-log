@@ -1,4 +1,4 @@
-<a routerLink="../">Unselect</a>
-<div *ngFor="let customer of (customers$ | async)" [routerLink]="['./', customer.id]">
+<a routerLink="/customers">Unselect</a>
+<div *ngFor="let customer of (customers$ | async)" [routerLink]="['/customers', customer.id]">
   {{ customer.name }}
 </div>

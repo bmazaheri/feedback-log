@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Customer } from './customers';
+import { Feedback } from './feedbacks';
 
 @Injectable({ providedIn: 'root' })
 export class ServerMockService {
@@ -9,7 +10,7 @@ export class ServerMockService {
   }
 
   public get<T>(url: string): Observable<T[]> {
-    return of(<any>customers);
+    return of(url === '/customers' ? <any>customers : <any>feedbacks);
   }
 }
 
@@ -19,4 +20,10 @@ const customers: Customer[] = [
   { id: 'c13', name: 'Chin Counce' },
   { id: 'c14', name: 'Jim Higgins' },
   { id: 'c15', name: 'Liz Cranfield' }
+];
+
+const feedbacks: Feedback[] = [
+  { id: 'f11', description: 'This app is great' },
+  { id: 'f12', description: 'I would like to suggest this platform to others' },
+  { id: 'f13', description: "I don't think I'm willing to use it again" }
 ];

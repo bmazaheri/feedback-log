@@ -6,10 +6,12 @@ import {
   CustomersActionTypes,
   GetCustomersSuccess,
   AddCustomer,
-  AddCustomerSuccess
+  AddCustomerSuccess,
+  SetSelectedCustomer
 } from './customers.actions';
 import { CustomersService } from './customers.service';
 import { EMPTY } from 'rxjs';
+import { GetFeedbacks } from '../feedbacks';
 
 @Injectable()
 export class CustomersEffects {
@@ -33,6 +35,12 @@ export class CustomersEffects {
         catchError(() => EMPTY)
       )
     )
+  );
+
+  @Effect()
+  selectCustomer$ = this.actions$.pipe(
+    ofType(CustomersActionTypes.SELECT),
+    map((action: SetSelectedCustomer) => new GetFeedbacks({ customerId: action.payload.id }))
   );
 
   constructor(private actions$: Actions, private customersService: CustomersService) {}

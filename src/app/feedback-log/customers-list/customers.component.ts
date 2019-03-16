@@ -9,7 +9,8 @@ import {
   selectCustomers,
   Customer,
   SetSelectedCustomer,
-  DeselectedCustomer
+  DeselectedCustomer,
+  selectSelectedCustomerId
 } from '../../store/customers';
 import { takeWhile, map } from 'rxjs/operators';
 
@@ -20,15 +21,17 @@ import { takeWhile, map } from 'rxjs/operators';
 })
 export class CustomersComponent implements OnInit, OnDestroy {
   public customers$: Observable<Customer[]>;
+  public selectedCustomerId: string;
 
   private isAlive = true;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.subscribeToRouteChanges();
     this.store.dispatch(new GetCustomers());
     this.customers$ = this.selectFromStore(selectCustomers);
-    this.subscribeToRouteChanges();
+    this.selectFromStore(selectSelectedCustomerId).subscribe(id => (this.selectedCustomerId = id));
   }
 
   private subscribeToRouteChanges(): void {

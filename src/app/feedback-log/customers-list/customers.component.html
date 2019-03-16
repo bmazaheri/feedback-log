@@ -1,4 +1,25 @@
-<a routerLink="/customers">Unselect</a>
-<div *ngFor="let customer of (customers$ | async)" [routerLink]="['/customers', customer.id]">
-  {{ customer.name }}
-</div>
+<nav class="panel">
+  <div class="panel-heading">
+    <div class="field">
+      <p class="control">
+        <a routerLink="/customers" class="title is-4">Customers</a>
+        <a class="button is-link is-small is-outlined is-pulled-right" title="Add new customer">
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
+        </a>
+      </p>
+    </div>
+  </div>
+  <a
+    *ngFor="let customer of (customers$ | async)"
+    [routerLink]="['/customers', customer.id]"
+    class="panel-block"
+    [class.is-active]="selectedCustomerId === customer.id"
+  >
+    <span class="panel-icon">
+      <i class="fas fa-user" aria-hidden="true"></i>
+    </span>
+    {{ customer.name }}
+  </a>
+</nav>

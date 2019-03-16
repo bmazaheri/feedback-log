@@ -25,5 +25,10 @@ const customers: Customer[] = [
 const feedbacks: Feedback[] = [
   { id: 'f11', description: 'This app is great' },
   { id: 'f12', description: 'I would like to suggest this platform to others' },
-  { id: 'f13', description: "I don't think I'm willing to use it again" }
+  { id: 'f13', description: "I don't think I'm willing to use it again" },
+  // {
+  //   id: 'f14',
+  //   description:
+  //     'This is gonna be a long long feedback so get ready for it! I might start from talking about how i heard about this platform'
+  // }
 ];

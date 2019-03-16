@@ -29,7 +29,7 @@ export class FeedbacksEffects {
   addFeedback$ = this.actions$.pipe(
     ofType(FeedbacksActionTypes.ADD),
     mergeMap((action: AddFeedback) =>
-      this.feedbacksService.addFeedback(action.payload.description).pipe(
+      this.feedbacksService.addFeedback(action.payload.customerId, action.payload.description).pipe(
         map(feedback => new AddFeedbackSuccess({ feedback })),
         catchError(() => EMPTY)
       )

@@ -3,11 +3,29 @@
     <div class="field">
       <p class="control">
         <a routerLink="/customers" class="title is-4">Customers</a>
-        <a class="button is-link is-small is-outlined is-pulled-right" title="Add new customer">
+        <button
+          [disabled]="isAdding"
+          (click)="openAddForm()"
+          class="button is-link is-small is-outlined is-pulled-right"
+          title="Add new customer"
+        >
           <span class="icon is-small">
             <i class="fas fa-plus"></i>
           </span>
-        </a>
+        </button>
+      </p>
+    </div>
+  </div>
+  <div class="panel-block is-active" *ngIf="isAdding">
+    <div class="field">
+      <p class="control">
+        <input
+          (keyup.enter)="onNameEnter($event.target.value)"
+          (keyup.escape)="closeAddForm()"
+          class="input is-info"
+          type="text"
+          placeholder="Enter Customers Name"
+        />
       </p>
     </div>
   </div>

@@ -1,32 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../../store';
-import { Feedback, selectFeedbacks } from '../../store/feedbacks';
-import { takeWhile } from 'rxjs/operators';
+import { Feedback } from '../../store/feedbacks';
+import { FeedbacksListService } from './feedbacks-list.service';
 
 @Component({
   selector: 'feedbacks-list',
   templateUrl: 'feedbacks-list.component.html',
-  styleUrls: ['feedbacks-list.component.css']
+  styleUrls: ['feedbacks-list.component.css'],
+  providers: [FeedbacksListService]
 })
-export class FeedbacksListComponent implements OnInit, OnDestroy {
+export class FeedbacksListComponent implements OnInit {
   public feedbacks$: Observable<Feedback[]>;
+  public isAdding = false;
 
-  private isAlive = true;
-
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+  constructor(private feedbacksListService: FeedbacksListService) {}
 
   ngOnInit(): void {
-    this.feedbacks$ = this.store.pipe(
-      takeWhile(() => this.isAlive),
-      select(selectFeedbacks)
-    );
+    this.feedbacks$ = this.feedbacksListService.getFeedbacks();
   }
 
-  ngOnDestroy(): void {
-    this.isAlive = false;
+  public openAddForm(): void {
+    this.isAdding = true;
+  }
+
+  public closeAddForm(): void {
+    this.isAdding = false;
+  }
+
+  public onDescriptionEnter(description: string): void {
+    this.feedbacksListService.addFeedback(description);
+    this.closeAddForm();
   }
 }

@@ -25,7 +25,7 @@ export class GetFeedbacksSuccess implements Action {
 export class AddFeedback implements Action {
   readonly type = FeedbacksActionTypes.ADD;
 
-  constructor(public payload: { description: string }) {}
+  constructor(public payload: { customerId: string; description: string }) {}
 }
 
 export class AddFeedbackSuccess implements Action {

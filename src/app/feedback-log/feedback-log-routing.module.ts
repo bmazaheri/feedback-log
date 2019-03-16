@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CustomersComponent } from './customers-list/customers.component';
+import { CustomersListComponent } from './customers-list/customers-list.component';
 import { FeedbackLogComponent } from './feedback-log.component';
 import { FeedbacksListComponent } from './feedbacks-list/feedbacks-list.component';
 
@@ -10,11 +10,11 @@ const routes: Routes = [
     path: '',
     component: FeedbackLogComponent,
     children: [
-      { path: '', component: CustomersComponent },
+      { path: '', component: CustomersListComponent },
       {
         path: ':customerId',
         children: [
-          { path: '', component: CustomersComponent },
+          { path: '', component: CustomersListComponent },
           { path: '', component: FeedbacksListComponent, outlet: 'feedbacks' }
         ]
       }

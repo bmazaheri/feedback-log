@@ -15,9 +15,9 @@ export class FeedbacksService {
     return this.http.get(this.feedbacksApiUrl);
   }
 
-  public addFeedback(description: string): Observable<Feedback> {
+  public addFeedback(customerId: string, description: string): Observable<Feedback> {
     return this.http
-      .post(this.feedbacksApiUrl, { description })
+      .post(this.feedbacksApiUrl, { customerId, description })
       .pipe(map(id => ({ id, description })));
   }
 }

@@ -1,40 +1,43 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { takeWhile, map } from 'rxjs/operators';
 
 import { AppState } from '../../store';
 import {
   GetCustomers,
-  selectCustomers,
-  Customer,
   SetSelectedCustomer,
   DeselectedCustomer,
-  selectSelectedCustomerId
+  Customer,
+  selectCustomers,
+  selectSelectedCustomerId,
+  AddCustomer
 } from '../../store/customers';
-import { takeWhile, map } from 'rxjs/operators';
 
-@Component({
-  selector: 'customers-list',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
-})
-export class CustomersComponent implements OnInit, OnDestroy {
-  public customers$: Observable<Customer[]>;
-  public selectedCustomerId: string;
-
+@Injectable()
+export class CustomersListService implements OnDestroy {
   private isAlive = true;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    this.subscribeToRouteChanges();
-    this.store.dispatch(new GetCustomers());
-    this.customers$ = this.selectFromStore(selectCustomers);
-    this.selectFromStore(selectSelectedCustomerId).subscribe(id => (this.selectedCustomerId = id));
+  public addCustomer(name: string): void {
+    this.store.dispatch(new AddCustomer({ name }));
   }
 
-  private subscribeToRouteChanges(): void {
+  public loadCustomers(): void {
+    this.store.dispatch(new GetCustomers());
+  }
+
+  public getCustomers(): Observable<Customer[]> {
+    return this.selectFromStore(selectCustomers);
+  }
+
+  public getSelectedCustomerId(): Observable<string> {
+    return this.selectFromStore(selectSelectedCustomerId);
+  }
+
+  public subscribeToRouteChanges(): void {
     this.route.params
       .pipe(
         takeWhile(() => this.isAlive),

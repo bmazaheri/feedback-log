@@ -7,10 +7,11 @@ import {
   GetCustomersSuccess,
   AddCustomer,
   AddCustomerSuccess,
-  SetSelectedCustomer
+  SetSelectedCustomer,
+  GetCustomers
 } from './customers.actions';
 import { CustomersService } from './customers.service';
-import { EMPTY } from 'rxjs';
+import { EMPTY, defer, of } from 'rxjs';
 import { GetFeedbacks } from '../feedbacks';
 
 @Injectable()
@@ -42,6 +43,9 @@ export class CustomersEffects {
     ofType(CustomersActionTypes.SELECT),
     map((action: SetSelectedCustomer) => new GetFeedbacks({ customerId: action.payload.id }))
   );
+
+  @Effect()
+  init$ = defer(() => of(new GetCustomers()));
 
   constructor(private actions$: Actions, private customersService: CustomersService) {}
 }

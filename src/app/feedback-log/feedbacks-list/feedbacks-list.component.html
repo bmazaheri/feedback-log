@@ -47,14 +47,24 @@
       </p>
     </div>
   </div>
-  <div *ngFor="let feedback of (feedbacks$ | async)" class="panel-block">
+  <a
+    *ngFor="let feedback of (feedbacks$ | async)"
+    (click)="toggleFeedbackExpand(feedback.id)"
+    class="panel-block"
+    [class.is-active]="feedbacksExpandStatus[feedback.id]"
+  >
     <span class="panel-icon">
       <i class="fas fa-comment" aria-hidden="true"></i>
     </span>
-    <p title="{{ feedback.description | textShortView: 100 }}">
-      {{ feedback.description | textShortView }}
+    <p *ngIf="feedbacksExpandStatus[feedback.id]; else shortFeedback">
+      {{ feedback.description }}
     </p>
-  </div>
+    <ng-template #shortFeedback>
+      <p title="{{ feedback.description | textShortView: 100 }}">
+        {{ feedback.description | textShortView }}
+      </p>
+    </ng-template>
+  </a>
 </main>
 <ng-template #emptyPlaceHolder>
   <div class="box feedbacks-placeholder">

@@ -22,7 +22,6 @@ export class CustomersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.subscribeToRouteChanges();
-    this.service.loadCustomers();
     this.customers$ = this.service.getCustomers();
     this.service.getSelectedCustomerId().subscribe(id => (this.selectedCustomerId = id));
     this.closeAddFormOnAddSuccess();

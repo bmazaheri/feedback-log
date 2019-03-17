@@ -6,7 +6,6 @@ import { takeWhile, map } from 'rxjs/operators';
 
 import { AppState } from '../../store';
 import {
-  GetCustomers,
   SetSelectedCustomer,
   DeselectedCustomer,
   Customer,
@@ -28,10 +27,6 @@ export class CustomersListService implements OnDestroy {
 
   public addCustomer(name: string): void {
     this.store.dispatch(new AddCustomer({ name }));
-  }
-
-  public loadCustomers(): void {
-    this.store.dispatch(new GetCustomers());
   }
 
   public getCustomers(): Observable<Customer[]> {

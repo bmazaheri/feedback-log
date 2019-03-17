@@ -18,6 +18,7 @@ export class FeedbacksListComponent implements OnInit {
   public isCustomerSelected$: Observable<boolean>;
   public isAddInProgress: boolean;
   public showAddForm: boolean = false;
+  public feedbacksExpandStatus: { [id: string]: boolean } = {};
 
   constructor(private service: FeedbacksListService) {}
 
@@ -40,6 +41,10 @@ export class FeedbacksListComponent implements OnInit {
 
   public onDescriptionEnter(description: string): void {
     this.service.addFeedback(description);
+  }
+
+  public toggleFeedbackExpand(id: string): void {
+    this.feedbacksExpandStatus = { [id]: !this.feedbacksExpandStatus[id] };
   }
 
   private closeAddFormOnSelectedCustomerChange(): void {

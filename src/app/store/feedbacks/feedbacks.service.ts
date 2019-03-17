@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ServerMockService } from '../server-mock.service';
-import { map } from 'rxjs/operators';
 import { Feedback } from './feedbacks.models';
 
 @Injectable({ providedIn: 'root' })

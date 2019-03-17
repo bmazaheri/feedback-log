@@ -16,7 +16,7 @@
       </p>
     </div>
   </div>
-  <div class="box is-active new-description-box" *ngIf="showAddForm">
+  <div class="box is-active new-description-box" [class.is-hidden]="!showAddForm">
     <div class="field new-description">
       <p class="control" [class.is-loading]="isAddInProgress">
         <textarea

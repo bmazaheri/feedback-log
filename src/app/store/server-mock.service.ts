@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Customer } from './customers';
 import { delay } from 'rxjs/operators';
+
+import { Customer } from './customers';
 
 @Injectable({ providedIn: 'root' })
 export class ServerMockService {
   public post<T>(url: string, body: Partial<T>): Observable<string> {
-    return of(`n${Math.floor(Math.random() * 100)}`).pipe(delay(3000));
+    return of(`n${Math.floor(Math.random() * 100)}`).pipe(delay(2000));
   }
 
   public get<T>(url: string, body?: any): Observable<T[]> {

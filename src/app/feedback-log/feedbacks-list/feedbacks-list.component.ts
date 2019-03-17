@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Feedback } from '../../store/feedbacks';
@@ -11,6 +11,9 @@ import { FeedbacksListService } from './feedbacks-list.service';
   providers: [FeedbacksListService]
 })
 export class FeedbacksListComponent implements OnInit {
+  @ViewChild('newDescription')
+  newDescriptionInput: ElementRef;
+
   public feedbacks$: Observable<Feedback[]>;
   public isCustomerSelected$: Observable<boolean>;
   public isAddInProgress: boolean;
@@ -26,7 +29,9 @@ export class FeedbacksListComponent implements OnInit {
   }
 
   public openAddForm(): void {
+    this.newDescriptionInput.nativeElement.value = '';
     this.showAddForm = true;
+    this.focusOnInput();
   }
 
   public closeAddForm(): void {
@@ -48,5 +53,9 @@ export class FeedbacksListComponent implements OnInit {
         this.closeAddForm();
       }
     });
+  }
+
+  private focusOnInput(): void {
+    setTimeout(() => this.newDescriptionInput.nativeElement.focus());
   }
 }

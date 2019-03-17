@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Customer } from '../../store/customers';
@@ -7,10 +7,12 @@ import { CustomersListService } from './customers-list.service';
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.css'],
   providers: [CustomersListService]
 })
 export class CustomersListComponent implements OnInit {
+  @ViewChild('newName')
+  newNameInput: ElementRef;
+
   public customers$: Observable<Customer[]>;
   public selectedCustomerId: string;
   public isAddInProgress: boolean;
@@ -27,7 +29,9 @@ export class CustomersListComponent implements OnInit {
   }
 
   public openAddForm(): void {
+    this.newNameInput.nativeElement.value = '';
     this.showAddForm = true;
+    this.focusOnInput();
   }
 
   public closeAddForm(): void {
@@ -45,5 +49,9 @@ export class CustomersListComponent implements OnInit {
         this.closeAddForm();
       }
     });
+  }
+
+  private focusOnInput(): void {
+    setTimeout(() => this.newNameInput.nativeElement.focus());
   }
 }

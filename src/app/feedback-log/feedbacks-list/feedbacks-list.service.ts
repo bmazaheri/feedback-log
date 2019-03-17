@@ -5,7 +5,12 @@ import { Observable } from 'rxjs';
 import { takeWhile, map, distinctUntilChanged, mapTo } from 'rxjs/operators';
 
 import { AppState } from '../../store';
-import { Feedback, selectFeedbacks, AddFeedback, selectisFeedbackAddInProgress } from '../../store/feedbacks';
+import {
+  Feedback,
+  selectFeedbacks,
+  AddFeedback,
+  selectisFeedbackAddInProgress
+} from '../../store/feedbacks';
 import { selectSelectedCustomerId } from '../../store/customers';
 
 @Injectable()

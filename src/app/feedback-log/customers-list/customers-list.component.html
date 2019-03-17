@@ -4,7 +4,7 @@
       <p class="control">
         <a routerLink="/customers" class="title is-4">Customers</a>
         <button
-          [disabled]="isAdding"
+          [disabled]="showAddForm"
           (click)="openAddForm()"
           class="button is-link is-small is-outlined is-pulled-right"
           title="Add new customer"
@@ -16,10 +16,11 @@
       </p>
     </div>
   </div>
-  <div class="panel-block is-active" *ngIf="isAdding">
+  <div class="panel-block is-active" *ngIf="showAddForm">
     <div class="field">
-      <p class="control">
+      <p class="control" [class.is-loading]="isAddInProgress">
         <input
+          [disabled]="isAddInProgress"
           (keyup.enter)="onNameEnter($event.target.value)"
           (keyup.escape)="closeAddForm()"
           class="input is-info"

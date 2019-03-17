@@ -11,3 +11,8 @@ export const selectSelectedCustomerId = createSelector(
   selectCustomersState,
   state => state.selectedCustomerId
 );
+
+export const selectisCustomerAddInProgress = createSelector(
+  selectCustomersState,
+  state => state.isAddInProgress
+);

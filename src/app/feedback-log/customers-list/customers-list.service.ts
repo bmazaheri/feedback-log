@@ -12,7 +12,8 @@ import {
   Customer,
   selectCustomers,
   selectSelectedCustomerId,
-  AddCustomer
+  AddCustomer,
+  selectisCustomerAddInProgress
 } from '../../store/customers';
 
 @Injectable()
@@ -20,6 +21,10 @@ export class CustomersListService implements OnDestroy {
   private isAlive = true;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+
+  public getIsCustomerAddInProgress(): Observable<boolean> {
+    return this.selectFromStore(selectisCustomerAddInProgress);
+  }
 
   public addCustomer(name: string): void {
     this.store.dispatch(new AddCustomer({ name }));

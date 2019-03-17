@@ -12,7 +12,7 @@ export class FeedbacksService {
   constructor(private http: ServerMockService) {}
 
   public getFeedbacks(customerId: string): Observable<Feedback[]> {
-    return this.http.get(this.feedbacksApiUrl);
+    return this.http.get(this.feedbacksApiUrl, { customerId });
   }
 
   public addFeedback(customerId: string, description: string): Observable<Feedback> {

@@ -12,24 +12,41 @@ import { FeedbacksListService } from './feedbacks-list.service';
 })
 export class FeedbacksListComponent implements OnInit {
   public feedbacks$: Observable<Feedback[]>;
-  public isAdding = false;
+  public isCustomerSelected$: Observable<boolean>;
+  public isAddInProgress: boolean;
+  public showAddForm: boolean = false;
 
-  constructor(private feedbacksListService: FeedbacksListService) {}
+  constructor(private service: FeedbacksListService) {}
 
   ngOnInit(): void {
-    this.feedbacks$ = this.feedbacksListService.getFeedbacks();
+    this.feedbacks$ = this.service.getFeedbacks();
+    this.isCustomerSelected$ = this.service.getIsCustomerSelected();
+    this.closeAddFormOnSelectedCustomerChange();
+    this.closeAddFormOnAddSuccess();
   }
 
   public openAddForm(): void {
-    this.isAdding = true;
+    this.showAddForm = true;
   }
 
   public closeAddForm(): void {
-    this.isAdding = false;
+    this.showAddForm = false;
   }
 
   public onDescriptionEnter(description: string): void {
-    this.feedbacksListService.addFeedback(description);
-    this.closeAddForm();
+    this.service.addFeedback(description);
+  }
+
+  private closeAddFormOnSelectedCustomerChange(): void {
+    this.service.getCustomerSelectedChange().subscribe(() => this.closeAddForm());
+  }
+
+  private closeAddFormOnAddSuccess(): void {
+    this.service.getIsFeedbackAddInProgress().subscribe(isAddInProgress => {
+      this.isAddInProgress = isAddInProgress;
+      if (!isAddInProgress) {
+        this.closeAddForm();
+      }
+    });
   }
 }

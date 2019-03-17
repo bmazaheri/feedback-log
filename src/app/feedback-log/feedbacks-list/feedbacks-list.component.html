@@ -1,10 +1,10 @@
-<main class="panel">
+<main class="panel" *ngIf="(isCustomerSelected$ | async); else emptyPlaceHolder">
   <div class="panel-heading">
     <div class="field">
       <p class="control">
         <a class="title is-4">Feedbacks</a>
         <button
-          [disabled]="isAdding"
+          [disabled]="showAddForm"
           (click)="openAddForm()"
           class="button is-link is-small is-outlined is-pulled-right"
           title="Add new feedback"
@@ -16,11 +16,12 @@
       </p>
     </div>
   </div>
-  <div class="box is-active new-description-box" *ngIf="isAdding">
+  <div class="box is-active new-description-box" *ngIf="showAddForm">
     <div class="field new-description">
-      <p class="control">
+      <p class="control" [class.is-loading]="isAddInProgress">
         <textarea
           #newDescription
+          [disabled]="isAddInProgress"
           class="textarea is-info"
           placeholder="Enter Feedback"
           rows="3"
@@ -29,10 +30,18 @@
     </div>
     <div class="field">
       <p class="buttons">
-        <button (click)="onDescriptionEnter(newDescription.value)" class="button is-link">
+        <button
+          [disabled]="isAddInProgress"
+          (click)="onDescriptionEnter(newDescription.value)"
+          class="button is-link"
+        >
           Add
         </button>
-        <button (click)="closeAddForm()" class="button is-danger is-outlined">
+        <button
+          [disabled]="isAddInProgress"
+          (click)="closeAddForm()"
+          class="button is-danger is-outlined"
+        >
           Cancel
         </button>
       </p>
@@ -47,3 +56,10 @@
     </p>
   </div>
 </main>
+<ng-template #emptyPlaceHolder>
+  <div class="box feedbacks-placeholder">
+    <span class="subtitle is-5 placeholder-text">
+      Please select a customer
+    </span>
+  </div>
+</ng-template>

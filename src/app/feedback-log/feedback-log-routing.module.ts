@@ -11,13 +11,8 @@ const routes: Routes = [
     component: FeedbackLogComponent,
     children: [
       { path: '', component: CustomersListComponent },
-      {
-        path: ':customerId',
-        children: [
-          { path: '', component: CustomersListComponent },
-          { path: '', component: FeedbacksListComponent, outlet: 'feedbacks' }
-        ]
-      }
+      { path: ':customerId', component: CustomersListComponent },
+      { path: '', component: FeedbacksListComponent, outlet: 'feedbacks' }
     ]
   }
 ];

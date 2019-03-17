@@ -5,3 +5,14 @@
 .new-description {
   width: 100%;
 }
+
+.feedbacks-placeholder {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.placeholder-text {
+  text-align: center;
+}
